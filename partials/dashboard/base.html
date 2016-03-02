@@ -1,0 +1,62 @@
+<header ng-controller="DashboardController">
+  <ul>
+    <li>Welcome, {{ email }}</li>
+    <li><a ui-sref="dashboard">Home</a></li>
+    <li><a ui-sref="imgur">Imgur</a></li>
+    <li><a ui-sref="#"></a></li>
+    <li><a ui-sref="logout">Logout</a></li>
+  </ul>
+</header>
+<md-card class="WeatherCard md-padding" ng-controller="WeatherController">
+  <div layout="columns">
+    <h3 flex-md="50" class="CityName">{{ weathers.city.name }}, {{ weathers.city.country }}</h3>
+    <div flex-md="50" class="CitySearch">
+      <form name="WeatherCitySearch" layout="columns">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Enter City Name</label>
+            <input ng-model="cityName" name="cityName" required>
+          </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="getWeatherUpdate()" ng-disabled="WeatherCitySearch.$invalid">Search City</md-button>
+      </form>
+    </div>
+  </div>
+  <md-divider></md-divider>
+  <div class="WeatherContent">
+    <ul>
+      <li ng-repeat="weather in weathers.list">
+        <h4>{{ weather.dt_txt }}</h4>
+        <h2>{{ (weather.main.temp * (9/5) - 459.67).toFixed(0) }} °F</h2>
+        <img ng-src="{{ 'http://openweathermap.org/img/w/' + weather.weather[0].icon + '.png' }}">
+        <p>{{ weather.weather[0].description }}</p>
+      </li>
+    </ul>
+  </div>
+</md-card>
+
+<md-card class="ToDoList" ng-controller="ToDoList">
+    <div layout="columns" class="md-padding">
+        <form name="NewToDoForm">
+          <div md-flex="50" flex layout="columns">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>To Do Item</label>
+                <input ng-model="todoitem" name="todoitem" required>
+              </md-input-container>
+              <md-button style="height: 50px;" class="md-primary md-raised" ng-click="createTodo()" ng-disabled="NewToDoForm.$invalid">Add To-Do Item</md-button>
+          </div>
+          <div md-flex="50" flex>
+            <table class="ToDoTable">
+                <tr>
+                  <th width="30%" style="text-align: center;">Date</th>
+                  <th width="60%">To-Do</th>
+                  <th width="10%">Actions</th>
+                </tr>
+                <tr ng-repeat="todo in todos">
+                  <td tyle="text-align: center;">{{ todo.created_at }}</td>
+                  <td>{{ todo.todo }}</td>
+                  <td><a class="delete" ng-click="deleteTodo(todo.id)">DELETE</a></td>
+                </tr>
+            </table>
+          </div>
+        </form>
+    </div>
+</md-card>

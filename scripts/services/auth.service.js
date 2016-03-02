@@ -9,7 +9,7 @@
 
     var app = angular.module('FacebookService', []);
 
-    app.factory('FacebookService', function ($http, $state) {
+    app.factory('FacebookService', function ($http, $state, $cookies) {
         return {
           watchLoginChange: function () {
             var _self = this;
@@ -17,6 +17,7 @@
             FB.Event.subscribe('auth.authResponseChange', function (res) {
               if(res.status === 'connected') {
                 $state.go('dashboard');
+                $cookies.put('isLoggedIn', true);
               } else {
                 $state.go('login');
               }
@@ -27,10 +28,13 @@
             FB.getLoginStatus(function (response) {
               if(response.status == 'connected') {
                 $state.go('dashboard');
+                $cookies.put('isLoggedIn', true);
               } else if(response.status == 'not_authorized') {
                 $state.go('login');
+                $cookies.remove('isLoggedIn');
               } else {
                 $state.go('login');
+                $cookies.remove('isLoggedIn');
               }
             });
           },

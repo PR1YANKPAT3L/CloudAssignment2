@@ -27,11 +27,12 @@ class Database
     return ($stmt->rowCount() > 0 ? true : false);
   }
 
-  public function validateRegister($email, $pass)
+  public function validateRegister($name, $email, $pass)
   {
     if($this->checkForUser($email)) {
-      $stmt = $this->dbh->prepare('INSERT INTO users (email, password, created_at) VALUES (:email, :pass, :dt)');
+      $stmt = $this->dbh->prepare('INSERT INTO users (fullname, email, password, created_at) VALUES (:name, :email, :pass, :dt)');
       $result = $stmt->execute(array(
+        ':name' => $name,
         ':email' => $email,
         ':pass' => md5(HASH . $pass),
         ':dt' => date("Y-m-d H:i:s")
@@ -44,11 +45,37 @@ class Database
   }
 
   public function checkForUser($email) {
-    $stmt = $this->dbh->prepare('SELECT FROM users WHERE email = :email');
+    $stmt = $this->dbh->prepare('SELECT * FROM users WHERE email = :email');
     $result = $stmt->execute(array(
       ':email' => $email
     ));
 
-    return ($stmt->rowCount() > 0 ? true : false);
+    return ($stmt->rowCount() > 0 ? false : true);
+  }
+
+  public function getTodoItems() {
+    $stmt = $this->dbh->prepare('SELECT * FROM todolist ORDER BY created_at DESC');
+    $result = $stmt->execute();
+
+    return $stmt->fetchAll();
+  }
+
+  public function addNewToDo($todo) {
+    $stmt = $this->dbh->prepare('INSERT INTO todolist (todo, created_at) VALUES (:todo, :dt)');
+    $result = $stmt->execute(array(
+      ':todo' => $todo,
+      ':dt' => date("Y-m-d H:i:s")
+    ));
+
+    return ($result ? true : false);
+  }
+
+  public function deleteToDo($id) {
+    $stmt = $this->dbh->prepare('DELETE FROM todolist WHERE id = :id');
+    $result = $stmt->execute(array(
+      ':id' => $id
+    ));
+
+    return ($result ? true : false);
   }
 }

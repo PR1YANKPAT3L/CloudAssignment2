@@ -1,0 +1,14 @@
+<header ng-controller="DashboardController">
+  <ul>
+    <li>Welcome, {{ email }}</li>
+    <li><a ui-sref="dashboard">Home</a></li>
+    <li><a ui-sref="imgur">Imgur</a></li>
+    <li><a ui-sref="#"></a></li>
+    <li><a ui-sref="logout">Logout</a></li>
+  </ul>
+</header>
+<div ng-controller="ImgurController" class="ImgurContent">
+  <md-card ng-repeat="img in imgurs">
+      <img ng-show="img.type" ng-src="{{ img.link }}" alt="" />
+  </md-card>
+</div>

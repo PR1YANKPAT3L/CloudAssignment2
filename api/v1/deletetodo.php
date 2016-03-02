@@ -6,12 +6,12 @@ $db = new Database();
 $data = file_get_contents('php://input');
 $data = json_decode($data);
 
-if($db->validateRegister($data->name, $data->email, $data->pass)) {
+if($db->deleteToDo($data->id)) {
   header('Cache-Control: no-cache, must-revalidate');
   header('Content-type: application/json');
   $array = [
     'valid' => true,
-    'message' => 'Registration successful!'
+    'message' => 'To-Do Item Deleted!'
   ];
   echo json_encode(new JSON($array), JSON_PRETTY_PRINT);
 } else {
@@ -19,7 +19,7 @@ if($db->validateRegister($data->name, $data->email, $data->pass)) {
   header('Content-type: application/json');
   $array = [
     'valid' => false,
-    'message' => 'Email already exists! Please try again!'
+    'message' => 'Something went wrong!'
   ];
   echo json_encode(new JSON($array), JSON_PRETTY_PRINT);
 }

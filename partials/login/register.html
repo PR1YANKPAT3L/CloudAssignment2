@@ -4,6 +4,13 @@
     </div>
     <form name="RegisterForm">
         <md-input-container class="md-block">
+            <label>Full Name</label>
+            <input required name="fullname" ng-model="register.fullname" type="text">
+            <div ng-messages="RegisterForm.fullname.$error" role="alert">
+                <div ng-message="['required']">Please enter your full name!</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
             <label>Email Address</label>
             <input required name="email" ng-model="register.email" type="email" ng-pattern="/^.+@.+\..+$/">
             <div ng-messages="RegisterForm.email.$error" role="alert">

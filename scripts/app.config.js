@@ -13,7 +13,9 @@
 			'angularAria': 'vendor/angular-aria.min',
 			'angular-cache': 'vendor/angular-cache.min',
       'facebook': 'https://connect.facebook.net/en_US/all',
-      'AuthService': 'services/auth.service'
+      'AuthService': 'services/auth.service',
+			'LoginServices': 'services/login.service',
+			'angularCookies': 'vendor/angular-cookies.min'
 		},
 		shim: {
 			angular: {
@@ -28,6 +30,9 @@
       },
 			angularMaterial: {
 				deps: ['angular', 'angularAria', 'angularAnimate']
+			},
+			angularCookies: {
+				deps: ['angular']
 			},
       'facebook': {
         exports: 'FB'
