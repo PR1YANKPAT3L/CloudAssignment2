@@ -1,3 +1,8 @@
+/*
+ * @author Priyank Patel
+ * @github https://github.com/PR1YANKPAT3L
+ * @desc Contains RequireJS configuration Content
+ */
 (function () {
 	require.config({
 		paths: {
@@ -7,7 +12,8 @@
 			'angularAnimate': 'vendor/angular-animate.min',
 			'angularAria': 'vendor/angular-aria.min',
 			'angular-cache': 'vendor/angular-cache.min',
-      'facebook': '//connect.facebook.net/en_US/sdk'
+      'facebook': 'https://connect.facebook.net/en_US/all',
+      'AuthService': 'services/auth.service'
 		},
 		shim: {
 			angular: {
