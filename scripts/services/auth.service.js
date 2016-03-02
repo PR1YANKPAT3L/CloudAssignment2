@@ -43,7 +43,7 @@
 
             FB.api('/me', function(res) {
               $rootScope.$apply(function () {
-                $rootScope.user = _self.user = res;
+                return res;
               });
             });
           }
