@@ -1,0 +1,37 @@
+<md-card class="LoginBox md-padding" ng-controller="RegisterController">
+    <div ng-show="registerErrorMessage" ng-class="{ 'error' : registerError, 'success' : !registerError}" class="LoginError">
+      {{ registerErrorMessage }}
+    </div>
+    <form name="RegisterForm">
+        <md-input-container class="md-block">
+            <label>Email Address</label>
+            <input required name="email" ng-model="register.email" type="email" ng-pattern="/^.+@.+\..+$/">
+            <div ng-messages="RegisterForm.email.$error" role="alert">
+                <div ng-message="['required', 'pattern']">Please enter Email Address</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Password</label>
+            <input required name="password" ng-model="register.password" type="password">
+            <div ng-messages="RegisterForm.password.$error">
+                <div ng-message-exp="required">Please enter password</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Repeat Password</label>
+            <input required name="repeatpassword" ng-model="register.repeatpassword" type="password">
+            <div ng-messages="RegisterForm.repeatpassword.$error">
+                <div ng-message-exp="required">Please repeat your password</div>
+            </div>
+        </md-input-container>
+        <div layout="columns">
+          <md-button md-flex class="md-primary md-raised" ng-disabled="RegisterForm.$invalid" ng-click="register()">Register</md-button>
+          <md-progress-circular md-mode='indeterminate' md-flex class="md-accent md-hue-1" ng-show="isValidationInProgress" md-diameter="40"></md-progress-circular>
+        </div>
+        <br />
+        <br />
+        <md-divider></md-divider>
+        <br />
+        <md-button class="md-raised FBLoginButton" ui-sref="login">Back to Login</md-button>
+    </form>
+</md-card>

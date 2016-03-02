@@ -1,1 +1,35 @@
-<md-button class="md-raised md-primary" ng-click="FB.login()">Login with Facebook</md-button>
+<md-card class="LoginBox md-padding" ng-controller="LoginController">
+    <div ng-show="loginErrorMessage" ng-class="{ 'error' : loginError, 'success' : !loginError}" class="LoginError">
+      {{ loginErrorMessage }}
+    </div>
+    <form name="LoginForm">
+        <md-input-container class="md-block">
+            <label>Email Address</label>
+            <input required name="email" ng-model="login.email" type="email" ng-pattern="/^.+@.+\..+$/">
+            <div ng-messages="LoginForm.email.$error" role="alert">
+                <div ng-message="['required', 'pattern']">Please enter Email Address</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Password</label>
+            <input required name="password" ng-model="login.password" type="password">
+            <div ng-messages="LoginForm.password.$error">
+                <div ng-message-exp="required">Please enter password</div>
+            </div>
+        </md-input-container>
+        <div layout="columns">
+          <md-button md-flex class="md-primary md-raised" ng-disabled="LoginForm.$invalid" ng-click="login()">Login</md-button>
+          <md-progress-circular md-mode='indeterminate' md-flex class="md-accent md-hue-1" ng-show="isValidationInProgress" md-diameter="40"></md-progress-circular>
+        </div>
+        <br />
+        <br />
+        <md-divider></md-divider>
+        <br />
+        <md-button class="md-raised FBLoginButton" ui-sref="register">Register</md-button>
+        <br />
+        <br />
+        <md-divider></md-divider>
+        <br />
+        <md-button class="md-primary md-raised FBLoginButton" ng-click="loginWithFB()">Login with Facebook</md-button>
+    </form>
+</md-card>
